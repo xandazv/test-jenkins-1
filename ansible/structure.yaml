@@ -1,0 +1,22 @@
+## This is structure yaml
+- hosts: jenkins
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: yes
+  vars:
+    username: myuser
+  tasks:
+  - name: Install ngix on ubuntu
+    apt:
+      name: nginx
+      state: latest
+    notify:
+    - startservice
+  handlers:
+  - name: startservice
+    service:
+      name: nginx
+      state: restarted
+
